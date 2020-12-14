@@ -34,7 +34,7 @@
     "test:coverage-report": "nyc report --reporter=text-lcov > coverage.lcov",
     "test:acceptance": "npm t test/acceptance/*",
     "test:integration": "npm t test/integration/*",
-    "test:unit": "npm t test/unit/*",
+    "test:unit": "npm t test/unit/*"
   },
   "repository": {
     "type": "git",
