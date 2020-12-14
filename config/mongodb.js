@@ -2,16 +2,16 @@ const envLoader = require('@b2wads/env-o-loader')
 
 const configSpec = {
   defaults: {
-    query: '{}',
-    queryOptions: '{}',
+    query: {},
+    queryOptions: {},
     uri: 'mongodb://localhost',
   },
 
   test: {
     collection: 'test_collection',
     database: 'test_database',
-    query: '{"find":true}',
-    queryOptions: '{"sort":{"name":-1}}',
+    query: { find: true },
+    queryOptions: { sort: { name: -1 } },
     uri: 'env:TEST_B2WADS_MONGODB_URI',
   },
 
@@ -24,13 +24,7 @@ const configSpec = {
   },
 }
 
-const rawConfig = envLoader(configSpec)
-
-const config = {
-  ...rawConfig,
-  query: JSON.parse(rawConfig.query),
-  queryOptions: JSON.parse(rawConfig.queryOptions),
-}
+const config = envLoader(configSpec)
 
 const validateConfig = (conf) => {
   if (!conf.collection) throw Error('invalid mongodb configuration: missing "collection"')
