@@ -18,4 +18,9 @@ const configSpec = {
   },
 }
 
-module.exports = envLoader(configSpec)
+const config = envLoader(configSpec)
+
+if (!config.exchange) throw Error('invalid rabbitmq configuration: missing "exchange"')
+
+module.exports = config
+

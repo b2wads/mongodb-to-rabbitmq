@@ -26,8 +26,14 @@ const configSpec = {
 
 const rawConfig = envLoader(configSpec)
 
-module.exports = {
+const config = {
   ...rawConfig,
   query: JSON.parse(rawConfig.query),
   queryOptions: JSON.parse(rawConfig.queryOptions),
 }
+
+if (!config.collection) throw Error('invalid mongodb configuration: missing "collection"')
+if (!config.database) throw Error('invalid mongodb configuration: missing "database"')
+
+module.exports = config
+
