@@ -4,7 +4,10 @@
   "description": "Publish MongoDB documents to a RabbitMQ exchange",
   "main": "app.js",
   "dependencies": {
-    "@b2wads/logger": "2.0.0"
+    "@b2wads/env-o-loader": "^1.0.2",
+    "@b2wads/logger": "2.0.0",
+    "amqplib": "^0.6.0",
+    "mongodb": "^3.6.3"
   },
   "devDependencies": {
     "chai": "4.2.0",
@@ -29,12 +32,12 @@
     "fmt:check": "npm run prettier:check && npm run eslint:check",
     "prettier": "./node_modules/.bin/prettier --write \"**/{*.js,*.json,bin/**}\"",
     "prettier:check": "./node_modules/.bin/prettier --check \"**/{*.js,*.json,bin/**}\"",
-    "start": "node app.js",
-    "test": "./node_modules/.bin/nyc mocha --reporter spec",
+    "start": "NODE_ENV=production node app.js",
+    "test": "NODE_ENV=test ./node_modules/.bin/nyc mocha --reporter spec",
     "test:coverage-report": "nyc report --reporter=text-lcov > coverage.lcov",
     "test:acceptance": "npm t test/acceptance/*",
     "test:integration": "npm t test/integration/*",
-    "test:unit": "npm t test/unit/*",
+    "test:unit": "npm t test/unit/*"
   },
   "repository": {
     "type": "git",
