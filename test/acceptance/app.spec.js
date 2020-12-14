@@ -1,0 +1,2 @@
+describe('[ACCEPTANCE] app', () => {
+})
