@@ -61,10 +61,8 @@ jobs:
         auth:
           username: <<parameters.docker-auth-username>>
           password: <<parameters.docker-auth-password>>
-      #- image: mongo:3.6
-      #- image: elasticsearch:5
-      #- image: rabbitmq:3.6-alpine
-      #- image: redis:5
+      - image: mongo:3.6
+      - image: rabbitmq:3.6-alpine
     steps:
       - install-git
       - checkout
@@ -107,7 +105,7 @@ jobs:
           <<: *build-template
           step-name: Pushing to registry
           tag: << parameters.image-tag >>
-  
+
   notify-build-status:
     description: Envia uma mensagem na página do PR com informações do build
     parameters:
@@ -157,62 +155,8 @@ workflows:
     jobs:
       - build:
           context: docker-registry-auth
-          image: node:12.19.0-alpine
-          name: node-12
-      
-      # Remova os comentário abaixo se quiser realizar build 
-      # de uma imagem staging do repositório
-
-      # - build-image: &build-template
-      #     context: docker-registry-auth
-      #     name: build-staging
-      #     registry: $B2WADS_DOCKER_REGISTRY
-      #     registry-username: B2WADS_DOCKER_REGISTRY_USERNAME
-      #     registry-password: B2WADS_DOCKER_REGISTRY_PASSWORD
-      #     image-tag: staging-$(echo "$CIRCLE_BRANCH" | sed 's/\W/-/g')
-      #     requires:
-      #       - node-12
-      #     filters:
-      #       branches:
-      #         ignore: master
-      # - notify-build-status: &notify-build-status-template
-      #     context: docker-registry-auth
-      #     name: notify-build-staging
-      #     registry: $B2WADS_DOCKER_REGISTRY
-      #     image-tag: staging-$(echo "$CIRCLE_BRANCH" | sed 's/\W/-/g')
-      #     github-api-token: $GITHUB_API_TOKEN
-      #     requires:
-      #       - build-staging
-
-      # Remova os comentário abaixo se quiser realizar build 
-      # de de imagem latest e tag quando mergear para master
-
-      # - build-image:
-      #     <<: *build-template
-      #     name: build-tag
-      #     image-tag: ${CIRCLE_SHA1:0:7}
-      #     filters:
-      #       branches:
-      #         only: master
-      # - notify-build-status:
-      #     <<: *notify-build-status-template
-      #     name: notify-build-tag
-      #     image-tag: ${CIRCLE_SHA1:0:7}
-      #     requires:
-      #       - build-tag
-
-      # - build-image: &build-latest
-      #     <<: *build-template
-      #     name: build-latest
-      #     image-tag: latest
-      #     filters:
-      #       branches:
-      #         only: master
-      # - notify-build-status:
-      #     <<: *notify-build-status-template
-      #     name: notify-build-latest
-      #     requires:
-      #       - build-latest
+          image: node:14.15.0-alpine
+          name: node-14
 
   optional-checks:
     jobs:
