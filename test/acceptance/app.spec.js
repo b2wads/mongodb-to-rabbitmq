@@ -1,2 +1,1 @@
-describe('[ACCEPTANCE] app', () => {
-})
+describe('[ACCEPTANCE] app', () => {})
