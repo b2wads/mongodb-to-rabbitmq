@@ -1,5 +1,5 @@
-const mongodbConfig = require('./mongodb')
-const rabbitmqConfig = require('./rabbitmq')
+const { mongodbConfig } = require('./mongodb')
+const { rabbitmqConfig } = require('./rabbitmq')
 
 module.exports = {
   mongodbConfig,

@@ -20,7 +20,13 @@ const configSpec = {
 
 const config = envLoader(configSpec)
 
-if (!config.exchange) throw Error('invalid rabbitmq configuration: missing "exchange"')
+const validateConfig = (conf) => {
+  if (!conf.exchange) throw Error('invalid rabbitmq configuration: missing "exchange"')
 
-module.exports = config
+  return conf
+}
 
+module.exports = {
+  rabbitmqConfig: validateConfig(config),
+  validateRabbitmqConfig: validateConfig,
+}

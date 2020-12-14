@@ -32,8 +32,14 @@ const config = {
   queryOptions: JSON.parse(rawConfig.queryOptions),
 }
 
-if (!config.collection) throw Error('invalid mongodb configuration: missing "collection"')
-if (!config.database) throw Error('invalid mongodb configuration: missing "database"')
+const validateConfig = (conf) => {
+  if (!conf.collection) throw Error('invalid mongodb configuration: missing "collection"')
+  if (!conf.database) throw Error('invalid mongodb configuration: missing "database"')
 
-module.exports = config
+  return conf
+}
 
+module.exports = {
+  mongodbConfig: validateConfig(config),
+  validateMongodbConfig: validateConfig,
+}
